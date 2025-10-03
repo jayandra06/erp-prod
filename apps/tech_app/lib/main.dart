@@ -5,7 +5,7 @@ import 'package:shared_ui/theme/app_theme.dart';
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/theme/theme_bloc.dart';
 import 'screens/auth/modern_login_screen.dart';
-import 'screens/dashboard/modern_dashboard_screen.dart';
+import 'screens/dashboard/professional_dashboard_screen.dart';
 
 void main() {
   runApp(const MaritimeTechApp());
@@ -56,7 +56,7 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(
       path: '/dashboard',
-      builder: (context, state) => const ModernDashboardScreen(),
+      builder: (context, state) => const ProfessionalDashboardScreen(),
     ),
   ],
   redirect: (context, state) {

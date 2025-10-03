@@ -101,14 +101,6 @@ class _ModernDashboardScreenState extends State<ModernDashboardScreen>
 
   Widget _buildMobileLayout(AuthAuthenticated state) {
     return Scaffold(
-      drawer: SideNavigation(
-        user: state.user,
-        tenant: state.tenant,
-        selectedItem: _selectedMenuItem,
-        onItemSelected: _onMenuItemSelected,
-        onLogout: _handleLogout,
-        isCollapsed: false,
-      ),
       appBar: AppBar(
         title: Text(
           'Technical Portal',
@@ -124,6 +116,16 @@ class _ModernDashboardScreenState extends State<ModernDashboardScreen>
           ThemeSwitcher(),
           const SizedBox(width: 8),
         ],
+      ),
+      drawer: Drawer(
+        child: SideNavigation(
+          user: state.user,
+          tenant: state.tenant,
+          selectedItem: _selectedMenuItem,
+          onItemSelected: _onMenuItemSelected,
+          onLogout: _handleLogout,
+          isCollapsed: false,
+        ),
       ),
       body: FadeTransition(
         opacity: _fadeAnimation,
