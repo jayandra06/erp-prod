@@ -35,9 +35,9 @@ class SideNavigation extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(2, 0),
+            color: Colors.black.withOpacity(isDark ? 0.3 : 0.1),
+            blurRadius: 20,
+            offset: const Offset(4, 0),
           ),
         ],
       ),
@@ -242,33 +242,49 @@ class SideNavigation extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
           onTap: () => onItemSelected(item['id']),
-          child: Container(
+          splashColor: AppTheme.primaryBlue.withOpacity(0.1),
+          hoverColor: AppTheme.primaryBlue.withOpacity(0.05),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             padding: EdgeInsets.symmetric(
               horizontal: isCollapsed ? 12 : 16,
-              vertical: 12,
+              vertical: 14,
             ),
             decoration: BoxDecoration(
               color: isSelected 
-                ? AppTheme.primaryBlue.withOpacity(0.1)
+                ? AppTheme.primaryBlue.withOpacity(0.15)
                 : Colors.transparent,
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
               border: isSelected 
-                ? Border.all(color: AppTheme.primaryBlue.withOpacity(0.3))
+                ? Border.all(
+                    color: AppTheme.primaryBlue.withOpacity(0.4),
+                    width: 1.5,
+                  )
                 : null,
             ),
             child: Row(
               children: [
-                Icon(
-                  isSelected ? item['activeIcon'] : item['icon'],
-                  color: isSelected 
-                    ? AppTheme.primaryBlue
-                    : (isDark ? Colors.grey[400] : AppTheme.textSecondary),
-                  size: 20,
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: isSelected 
+                      ? AppTheme.primaryBlue.withOpacity(0.2)
+                      : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    isSelected ? item['activeIcon'] : item['icon'],
+                    color: isSelected 
+                      ? AppTheme.primaryBlue
+                      : (isDark ? Colors.grey[400] : AppTheme.textSecondary),
+                    size: 20,
+                  ),
                 ),
                 if (!isCollapsed) ...[
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: Text(
                       item['title'],
@@ -276,7 +292,8 @@ class SideNavigation extends StatelessWidget {
                         color: isSelected 
                           ? AppTheme.primaryBlue
                           : (isDark ? Colors.white : AppTheme.textPrimary),
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -305,35 +322,47 @@ class SideNavigation extends StatelessWidget {
           Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
               onTap: onLogout,
-              child: Container(
+              splashColor: AppTheme.errorRed.withOpacity(0.1),
+              hoverColor: AppTheme.errorRed.withOpacity(0.05),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
                 padding: EdgeInsets.symmetric(
                   horizontal: isCollapsed ? 12 : 16,
-                  vertical: 12,
+                  vertical: 14,
                 ),
                 decoration: BoxDecoration(
                   color: AppTheme.errorRed.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: AppTheme.errorRed.withOpacity(0.3),
+                    width: 1,
                   ),
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.logout,
-                      color: AppTheme.errorRed,
-                      size: 20,
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppTheme.errorRed.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.logout_rounded,
+                        color: AppTheme.errorRed,
+                        size: 20,
+                      ),
                     ),
                     if (!isCollapsed) ...[
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: Text(
                           'Logout',
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: AppTheme.errorRed,
                             fontWeight: FontWeight.w600,
+                            fontSize: 14,
                           ),
                         ),
                       ),
@@ -348,3 +377,4 @@ class SideNavigation extends StatelessWidget {
     );
   }
 }
+

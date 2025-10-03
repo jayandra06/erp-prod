@@ -71,3 +71,4 @@ class MaritimeAdminApp extends ConsumerWidget {
     );
   }
 }
+

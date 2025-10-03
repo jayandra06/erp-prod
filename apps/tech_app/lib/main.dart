@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_ui/theme/app_theme.dart';
 import 'bloc/auth/auth_bloc.dart';
+import 'bloc/theme/theme_bloc.dart';
 import 'screens/auth/modern_login_screen.dart';
 import 'screens/dashboard/modern_dashboard_screen.dart';
 
@@ -15,15 +16,32 @@ class MaritimeTechApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc(),
-      child: MaterialApp.router(
-        title: 'Maritime Procurement ERP - Technical Portal',
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.light,
-        routerConfig: _router,
-        debugShowCheckedModeBanner: false,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ThemeBloc()..add(ThemeLoaded()),
+        ),
+      ],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, themeState) {
+          ThemeMode themeMode = ThemeMode.system;
+          
+          if (themeState is ThemeLoadedState) {
+            themeMode = themeState.themeMode;
+          }
+          
+          return MaterialApp.router(
+            title: 'Maritime Procurement ERP - Technical Portal',
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeMode,
+            routerConfig: _router,
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }

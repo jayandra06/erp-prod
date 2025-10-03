@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_ui/theme/app_theme.dart';
+import '../../bloc/theme/theme_bloc.dart';
 
 class ThemeSwitcher extends StatefulWidget {
   const ThemeSwitcher({super.key});
@@ -36,21 +38,15 @@ class _ThemeSwitcherState extends State<ThemeSwitcher>
   }
 
   void _toggleTheme() {
-    final currentTheme = Theme.of(context).brightness;
-    final newTheme = currentTheme == Brightness.dark 
-        ? ThemeMode.light 
-        : ThemeMode.dark;
+    context.read<ThemeBloc>().add(ThemeToggled());
     
     // Animate the switch
-    if (newTheme == ThemeMode.dark) {
+    final currentTheme = Theme.of(context).brightness;
+    if (currentTheme == Brightness.light) {
       _animationController.forward();
     } else {
       _animationController.reverse();
     }
-    
-    // TODO: Implement theme switching logic
-    // This would typically use a theme provider or state management
-    print('Switching to ${newTheme == ThemeMode.dark ? 'dark' : 'light'} theme');
   }
 
   @override
@@ -76,3 +72,4 @@ class _ThemeSwitcherState extends State<ThemeSwitcher>
     );
   }
 }
+

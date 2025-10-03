@@ -51,3 +51,4 @@ class AppConstants {
   static const bool enableNotifications = true;
   static const bool enableAnalytics = true;
 }
+
