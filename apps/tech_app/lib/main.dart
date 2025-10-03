@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_ui/theme/app_theme.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_ui/shared_ui.dart';
 import 'bloc/auth/auth_bloc.dart';
 import 'bloc/theme/theme_bloc.dart';
 import 'screens/auth/modern_login_screen.dart';
-import 'screens/dashboard/professional_dashboard_screen.dart';
+import 'screens/dashboard/template_dashboard_screen.dart';
 
 void main() {
   runApp(const MaritimeTechApp());
@@ -35,9 +36,12 @@ class MaritimeTechApp extends StatelessWidget {
           
           return MaterialApp.router(
             title: 'Maritime Procurement ERP - Technical Portal',
-            theme: AppTheme.lightTheme,
-            darkTheme: AppTheme.darkTheme,
-            themeMode: themeMode,
+            theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: bgColor,
+              textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+                  .apply(bodyColor: Colors.white),
+              canvasColor: secondaryColor,
+            ),
             routerConfig: _router,
             debugShowCheckedModeBanner: false,
           );
@@ -56,7 +60,7 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(
       path: '/dashboard',
-      builder: (context, state) => const ProfessionalDashboardScreen(),
+      builder: (context, state) => const TemplateDashboardScreen(),
     ),
   ],
   redirect: (context, state) {
