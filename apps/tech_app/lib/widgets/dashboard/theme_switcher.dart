@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_ui/theme/app_theme.dart';
 import '../../bloc/theme/theme_bloc.dart';
 
 class ThemeSwitcher extends StatefulWidget {

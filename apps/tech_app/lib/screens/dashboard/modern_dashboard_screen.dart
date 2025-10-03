@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_ui/layout/responsive_layout.dart';
-import 'package:shared_ui/components/app_button.dart';
 import 'package:shared_ui/theme/app_theme.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../widgets/dashboard/side_navigation.dart';
